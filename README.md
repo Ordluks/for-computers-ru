@@ -1,2 +1,2 @@
-# for-computers-ru
+# ForComputers.ru
  
