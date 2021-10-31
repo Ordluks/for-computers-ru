@@ -1,0 +1,49 @@
+@import 'src/variables.scss';
+
+
+body {
+	background: white;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: lighter;
+}
+
+
+.standartInput {
+	border: 1px solid rgb(204, 204, 204);
+	padding: 7px 14px;
+	transition: 0.4s;
+
+	font-family: Arial, sans-serif;
+
+	&:focus {
+		$focus-color: black;
+		outline: 0;
+		border-color: $focus-color;
+		box-shadow: 0px 0px 0px 1px $focus-color inset;
+	}
+}
+
+.standartButton {
+	background: $main-color;
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	border: 0;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
+
+	&:enabled:hover {
+		background: 0;
+		color: $main-color;
+		font-weight: 700;
+		box-shadow: 0px 0px 0px 2px $main-color inset;
+		border: 0;
+		border-radius: 5px;
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	&:disabled {
+		cursor: default;
+	}
+}

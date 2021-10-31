@@ -1,0 +1,36 @@
+@import '/src/variables.scss';
+
+
+.wrapper {
+	height: 60px;
+	box-sizing: border-box;
+	background: $main-color;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px $content-padding;
+
+	grid-area: h;
+
+	.siteName {
+		a {
+			font: 25px 'Poppins', sans-serif;
+			color: white;
+			text-decoration: none;
+		}
+	}
+
+	.account {
+		a {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+			margin-left: 14px;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
