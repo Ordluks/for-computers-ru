@@ -1,0 +1,17 @@
+{
+	"all": {
+		"name": "Все товары"
+	},
+	"controllers": {
+		"name": "Контролерры"
+	},
+	"monitors": {
+		"name": "Мониторы"
+	},
+	"keyboards": {
+		"name": "Клавиатуры"
+	},
+	"others": {
+		"name": "Другое"
+	}
+}

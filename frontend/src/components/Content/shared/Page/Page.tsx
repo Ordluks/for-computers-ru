@@ -8,7 +8,7 @@ type PageProps = {
 
 
 const Page: FC<PageProps> = ({ pageTitle, children }) => {
-	document.title = pageTitle
+	document.title = pageTitle + ' | ForComputers.ru'
 	return children
 }
 

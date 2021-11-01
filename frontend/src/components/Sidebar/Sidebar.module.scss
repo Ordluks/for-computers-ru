@@ -1,0 +1,13 @@
+@import '/src/variables.scss';
+
+
+.wrapper {
+	grid-area: sidebar;
+	padding-left: $content-padding;
+	border-left: 1px solid rgb(168, 168, 168);
+
+	h1 {
+		border-bottom: 3px solid $main-color;
+		margin-bottom: 10px;
+	}
+}
