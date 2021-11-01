@@ -3,6 +3,7 @@ import './App.scss'
 import Header from './components/Header'
 import Content from './components/Content'
 import Sidebar from './components/Sidebar'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Content />
         <Sidebar />
       </div>
-      <div className='footer'></div>
+      <Footer />
     </div>
   )
 }
