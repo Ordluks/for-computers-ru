@@ -3,7 +3,7 @@
 
 body {
 	background: rgb(248, 248, 248);
-	font-family: 'Montserrat', sans-serif;
+	font: 15px 'Montserrat', sans-serif;
 	font-weight: lighter;
 }
 
@@ -42,7 +42,11 @@ body {
 
 
 h1 {
-	font-size: 20px;
+	font-size: 22px;
+}
+
+h2 {
+	font-size: 18px;
 }
 
 .defaultInput {

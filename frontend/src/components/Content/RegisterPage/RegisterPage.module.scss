@@ -1,0 +1,18 @@
+.wrapper {
+	.form {
+		margin-top: 35px;
+
+		.inputs {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(3, auto);
+			grid-auto-flow: column;
+			gap: 10px 60px;
+			margin-bottom: 30px;
+		}
+
+		.errorMsg {
+			color: rgb(184, 29, 29);
+		}
+	}
+}

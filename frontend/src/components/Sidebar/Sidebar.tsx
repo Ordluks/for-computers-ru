@@ -7,7 +7,7 @@ import NavItem from './NavItem'
 const Sidebar = () => {
 	return (
 		<div className={scss.wrapper}>
-			<h1>Категории товаров</h1>
+			<h2>Категории товаров</h2>
 			<nav>
 				<ul className='categories'>
 					{
