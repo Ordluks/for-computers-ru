@@ -9,11 +9,11 @@ const Sidebar = () => {
 		<div className={scss.wrapper}>
 			<h1>Категории товаров</h1>
 			<nav>
-				<ul>
+				<ul className='categories'>
 					{
 						Object.entries(categoriesData).map((value, index) => {
 							const [ category, { name } ] = value
-							return <NavItem url={category} text={name} key={index} />
+							return <NavItem url={'/products/' + category} text={name} key={index} />
 						})
 					}
 				</ul>

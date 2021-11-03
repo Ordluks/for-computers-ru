@@ -9,7 +9,7 @@ type NavItemProps = {
 }
 
 const NavItem: FC<NavItemProps> = ({ url, text }) => {
-	return <li className={scss.wrapper} ><NavLink to={'/' + url}>{text}</NavLink></li>
+	return <li className={scss.wrapper} ><NavLink to={url}>{text}</NavLink></li>
 }
 
 export default NavItem
