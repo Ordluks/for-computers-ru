@@ -5,9 +5,9 @@
 		.inputs {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			grid-template-rows: repeat(3, auto);
+			grid-template-rows: repeat(2, auto);
 			grid-auto-flow: column;
-			gap: 10px 60px;
+			gap: 20px 60px;
 			margin-bottom: 30px;
 		}
 
