@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { RootState } from '../../../../store/index'
-import { changeFirstNameText } from '../../../../store/reducers/registerPage/actions'
+import { AppDispatch, RootState } from '../../../../store/index'
+import { registerPageSlice } from '../../../../store/reducers/registerPageSlice'
 import TextInputComponent from '../../shared/TextInput'
 
 
+const { firstNameInputChange } = registerPageSlice.actions
 
 const mapStateToProps = (state: RootState) => ({
   caption: 'Имя',
   value: state.registerPage.inputs.firstName
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   changeText(text: string) {
-    dispatch(changeFirstNameText(text))
+    dispatch(firstNameInputChange(text))
   }
 })
 

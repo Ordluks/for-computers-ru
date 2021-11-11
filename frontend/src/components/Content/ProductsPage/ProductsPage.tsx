@@ -8,16 +8,16 @@ const categoriesData: {[key: string]: {name: string}} = categoriesJson
 
 
 type ProductsPageParams = {
-	category?: string
+	category: string
 }
 
 const ProductsPage: FC = () => {
-	const category = useParams<ProductsPageParams>().category || 'all'
-	const categoryName = categoriesData[category].name
+	// const category: string = useParams() || 'all'
+	// const categoryName = categoriesData[category].name
 
 	return (
-		<Page pageTitle={categoryName} >
-			<div className="wrapper"></div>
+		<Page pageTitle={''} >
+			<div className='wrapper'></div>
 		</Page>
 	)
 }

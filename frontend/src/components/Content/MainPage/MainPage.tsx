@@ -3,7 +3,7 @@ import scss from 'MainPage.module.scss'
 import Page from '../shared/Page'
 
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
 	return (
 		<Page pageTitle='Главная' >
 			<div>

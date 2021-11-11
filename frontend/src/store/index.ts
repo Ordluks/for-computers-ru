@@ -1,18 +1,17 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import registerPageReducer from './reducers/registerPage/reducer'
-import { RegisterPageAction } from './reducers/registerPage/actions'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import registerPageReducer from './reducers/registerPageSlice'
 
 
 const rootReducer = combineReducers({
 	registerPage: registerPageReducer
 })
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+export const setupStore = () => {
+	return configureStore({
+		reducer: rootReducer
+	})
+}
 
-
-export type RootState = ReturnType<typeof store.getState>
-export type Action = RegisterPageAction
-
-export default store
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

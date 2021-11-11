@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import scss from './Header.module.scss'
 
 
-const Header = () => {
+const Header: React.FC = () => {
 	return (
 		<div className={scss.wrapper}>
 			<h1 className={scss.siteName}><NavLink to='/'>ForComputers.ru</NavLink></h1>

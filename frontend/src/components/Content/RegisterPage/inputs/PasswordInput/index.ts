@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { RootState } from '../../../../../store'
-import { changePasswordText, showPassword, hidePassword } from '../../../../../store/reducers/registerPage/actions'
+import { registerPageSlice } from '../../../../../store/reducers/registerPageSlice'
 import PasswordInputComponent from './PasswordInput'
 
+
+const { passwordInputsChange, showPassword, hidePassword } = registerPageSlice.actions
 
 const mapStateToProps = (state: RootState) => {
 	const { text, visibility, difficult } = state.registerPage.inputs.password
@@ -17,7 +19,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	changeText(text: string) {
-		dispatch(changePasswordText(text))
+		dispatch(passwordInputsChange(text))
 	},
 
 	show() {

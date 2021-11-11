@@ -4,7 +4,7 @@ import categoriesData from '../../categories.json'
 import NavItem from './NavItem'
 
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
 	return (
 		<div className={scss.wrapper}>
 			<h2>Категории товаров</h2>

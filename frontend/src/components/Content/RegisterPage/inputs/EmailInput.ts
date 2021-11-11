@@ -1,18 +1,19 @@
 import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { RootState } from '../../../../store/index'
+import { AppDispatch, RootState } from '../../../../store/index'
+import { registerPageSlice } from '../../../../store/reducers/registerPageSlice'
 import TextInputComponent from '../../shared/TextInput'
 
 
+const { emailInputChange } = registerPageSlice.actions
 
 const mapStateToProps = (state: RootState) => ({
   caption: 'E-mail',
   value: state.registerPage.inputs.email
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   changeText(text: string) {
-
+    dispatch(emailInputChange(text))
   }
 })
 
