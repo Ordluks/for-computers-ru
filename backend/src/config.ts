@@ -1,3 +1,4 @@
 export default {
-	port: 3300
+	port: 3300,
+	databasePath: 'database.db'
 }
