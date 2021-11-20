@@ -21,8 +21,11 @@ export default class UsersController {
 
 	static async createUserApi(req: Request, res: Response) {
 		const userData: UserCreatingData = req.body
-		res.send(await UsersDAO.createUser(userData))
-		const { firstName, email } = userData
-		console.log(`Created user ${firstName} ${email}`)
+		const error = await UsersDAO.createUser(userData)
+		res.send(error)
+		if (!error) {
+			const { firstName, email } = userData
+			console.log(`Created user ${firstName} ${email}`)
+		}
 	}
 }

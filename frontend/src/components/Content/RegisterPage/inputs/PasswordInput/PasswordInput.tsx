@@ -22,14 +22,19 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, visibility, diffic
 		if (text !== undefined) changeText(text)
 	}
 
-	const strenghtClass = difficult.id !== undefined ? [
-		scss.week,
-		scss.week,
-		scss.medium,
-		scss.strong
-	][difficult.id] : null
+	let strenghtClass = null
+	let strenghtMsg = ''
 
-	const strenghtMsg = difficult.value || ''
+	if (difficult !== null) {
+		strenghtClass = [
+			scss.week,
+			scss.week,
+			scss.medium,
+			scss.strong
+		][difficult.id]
+		
+		strenghtMsg = difficult.value
+	}
 
 	const [icon, type] = visibility ?
 		[<FontAwesomeIcon icon={faEyeSlash} onClick={hide} />, 'text'] :

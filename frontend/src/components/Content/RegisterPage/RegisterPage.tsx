@@ -7,7 +7,12 @@ import EmailInput from './inputs/EmailInput'
 import PasswordInput from './inputs/PasswordInput'
 
 
-const RegisterPage: React.FC = () => {
+type RegisterPageProps = {
+	registerError: string
+	doCreateUser: () => void
+}
+
+const RegisterPage: React.FC<RegisterPageProps> = ({ registerError, doCreateUser }) => {
 	return (
 		<Page pageTitle='Регистрация'>
 			<div className={scss.wrapper}>
@@ -19,9 +24,10 @@ const RegisterPage: React.FC = () => {
 						<EmailInput />
 						<PasswordInput />
 					</div>
-				</div>
 
-				<button className='defaultButton'>Отправить</button>
+					<p>{registerError}</p>
+					<button className='defaultButton' onClick={doCreateUser}>Отправить</button>
+				</div>
 			</div>
 		</Page>
 	)

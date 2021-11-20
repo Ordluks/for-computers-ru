@@ -4,6 +4,7 @@ import passwordHash from 'password-hash'
 import errorMessages from '../../models/errors'
 import { User, UserCreatingData, UserSendingData } from '../../models/User'
 
+
 let db: Database
 
 export default class UsersDAO {

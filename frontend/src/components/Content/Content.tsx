@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router'
 import scss from './Content.module.scss'
 import MainPage from './MainPage'
 import ProductsPage from './ProductsPage'
-import RegisterPage from './RegisterPage'
+import RegisterPageComponent from './RegisterPage'
 
 
 const Content: React.FC = () => {
@@ -12,7 +12,7 @@ const Content: React.FC = () => {
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path='/products/:category' element={<ProductsPage />} />
-				<Route path='/register' element={<RegisterPage />} />
+				<Route path='/register' element={<RegisterPageComponent />} />
 			</Routes>
 		</div>
 	)
