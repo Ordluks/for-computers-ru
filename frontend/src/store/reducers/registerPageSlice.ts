@@ -68,7 +68,7 @@ export const registerPageSlice = createSlice({
 		emailInputChange(state, action: PayloadAction<string>) {
 			state.inputs.email = action.payload
 		},
-		passwordInputsChange(state, action: PayloadAction<string>) {
+		passwordInputChange(state, action: PayloadAction<string>) {
 			state.inputs.password.text = action.payload
 			state.inputs.password.difficult = checkPasswordStrenght(action.payload)
 		},

@@ -8,32 +8,17 @@ import classNames from 'classnames'
 type PasswordInputProps = {
 	value: string,
 	visibility: boolean,
-	difficult: any,
 	changeText(text: string): void,
 	show(): void,
 	hide(): void
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ value, visibility, difficult, changeText, show, hide }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ value, visibility, changeText, show, hide }) => {
 	const ref = createRef<HTMLInputElement>()
 
 	const handlerOnChange = () => {
 		const text = ref.current?.value
 		if (text !== undefined) changeText(text)
-	}
-
-	let strenghtClass = null
-	let strenghtMsg = ''
-
-	if (difficult !== null) {
-		strenghtClass = [
-			scss.week,
-			scss.week,
-			scss.medium,
-			scss.strong
-		][difficult.id]
-		
-		strenghtMsg = difficult.value
 	}
 
 	const [icon, type] = visibility ?
@@ -43,7 +28,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, visibility, diffic
 	return (
 		<div className={scss.wrapper}>
 			<span>Пароль</span>
-			<div className={classNames(scss.password, strenghtClass, 'defaultInput')}>
+			<div className={classNames(scss.password, 'defaultInput')}>
 				<input
 					type={type}
 					ref={ref}
@@ -54,7 +39,6 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, visibility, diffic
 					{icon}
 				</button>
 			</div>
-			<span className={classNames(scss.strenghtMsg, strenghtClass)}>{strenghtMsg}</span>
 		</div>
 	)
 }

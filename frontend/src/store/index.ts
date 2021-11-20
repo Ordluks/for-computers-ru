@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import loginPageReducer from './reducers/loginPageSlice'
 import registerPageReducer from './reducers/registerPageSlice'
 
 
 const rootReducer = combineReducers({
-	registerPage: registerPageReducer
+	registerPage: registerPageReducer,
+	loginPage: loginPageReducer
 })
 
 export const setupStore = () => {

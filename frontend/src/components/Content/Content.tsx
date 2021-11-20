@@ -1,9 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router'
 import scss from './Content.module.scss'
+import LoginPage from './LoginPage'
 import MainPage from './MainPage'
 import ProductsPage from './ProductsPage'
-import RegisterPageComponent from './RegisterPage'
+import RegisterPage from './RegisterPage'
 
 
 const Content: React.FC = () => {
@@ -12,7 +13,8 @@ const Content: React.FC = () => {
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path='/products/:category' element={<ProductsPage />} />
-				<Route path='/register' element={<RegisterPageComponent />} />
+				<Route path='/register' element={<RegisterPage />} />
+				<Route path='/login' element={<LoginPage />} />
 			</Routes>
 		</div>
 	)
