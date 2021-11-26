@@ -1,0 +1,32 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+
+	animation: flip-out-hor-top 0.45s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+
+	.icon {
+		color: rgb(44, 173, 44);
+		font-size: 50px;
+		margin-right: 20px;
+	}
+
+	.text {
+		font-size: 40px;
+	}
+}
+
+
+@keyframes flip-out-hor-top {
+	0% {
+    -webkit-transform: rotateX(70deg);
+            transform: rotateX(70deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    opacity: 1;
+  }
+}

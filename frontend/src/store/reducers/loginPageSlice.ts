@@ -12,7 +12,8 @@ type LoginPageState = {
 			visibility: boolean
 		}
 	}
-	error: string
+	error: string,
+	success: boolean
 }
 
 const initialState: LoginPageState = {
@@ -23,16 +24,17 @@ const initialState: LoginPageState = {
 			visibility: false
 		}
 	},
-	error: ''
+	error: '',
+	success: false
 }
 
-export const loginThunk = createAsyncThunk<string, void, {state: RootState}>(
+export const loginThunk = createAsyncThunk<string | null, void, {state: RootState}>(
 	'loginPage/loginThunk',
 	async (_, thunkAPI) => {
 		const { email, password: { text: passwordText } } = thunkAPI.getState().loginPage.inputs
 	 	const result = await UsersAPI.login(email, passwordText)
 		thunkAPI.dispatch(authThunk())
-		return result === null ? '' : result
+		return result
 	}
 )
 
@@ -54,8 +56,10 @@ export const loginPageSlice = createSlice({
 		}
 	},
 	extraReducers: (builder) => {
-		builder.addCase(loginThunk.fulfilled, (state, action: PayloadAction<string>) => {
-			
+		builder.addCase(loginThunk.fulfilled, (state, action: PayloadAction<string | null>) => {
+			const errorMsg = action.payload
+			if (errorMsg !== null) state.error = errorMsg
+			else state.success = true
 		})
 	}
 })

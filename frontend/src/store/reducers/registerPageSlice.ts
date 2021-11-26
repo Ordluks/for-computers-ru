@@ -16,7 +16,8 @@ type RegisterPageState = {
 			difficult: Result<string> | null
 		}
 	},
-	error: string
+	error: string,
+	success: boolean
 }
 
 const initialState: RegisterPageState = {
@@ -30,10 +31,11 @@ const initialState: RegisterPageState = {
 			difficult: null
 		}
 	},
-	error: ''
+	error: '',
+	success: false
 }
 
-export const createUserThunk = createAsyncThunk<string, void, {state: RootState}>(
+export const createUserThunk = createAsyncThunk<string | null, void, {state: RootState}>(
 	'registerPage/createUserThunk',
 	async (_, thunkAPI) => {
 		thunkAPI.dispatch(registerPageSlice.actions.validateInputs())
@@ -51,7 +53,7 @@ export const createUserThunk = createAsyncThunk<string, void, {state: RootState}
 			lastName
 		}
 		const result = await UsersAPI.createUser(user)
-		return result === null ? '' : result
+		return result
 	}
 ) 
 
@@ -111,8 +113,10 @@ export const registerPageSlice = createSlice({
 	},
 
 	extraReducers: (builder) => {
-		builder.addCase(createUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
-			state.error = action.payload
+		builder.addCase(createUserThunk.fulfilled, (state, action: PayloadAction<string | null>) => {
+			const errorMsg = action.payload
+			if (errorMsg !== null) state.error = errorMsg
+			state.success = true
 		})
 	}
 })

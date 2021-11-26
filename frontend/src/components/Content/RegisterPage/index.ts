@@ -5,7 +5,8 @@ import RegisterPageComponent from './RegisterPage'
 
 
 const mapStateToProps = (state: RootState) => ({
-	registerError: state.registerPage.error
+	registerError: state.registerPage.error,
+	isSuccess: state.registerPage.success
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
