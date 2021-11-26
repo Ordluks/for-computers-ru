@@ -5,7 +5,11 @@ import EmailInput from './inputs/EmailInput'
 import PasswordInput from './inputs/PasswordInput'
 
 
-const LoginPage: React.FC = () => {
+type LoginPageProps = {
+	doLogin: () => void
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ doLogin }) => {
 	return (
 		<Page pageTitle='Вход' >
 			<div className={scss.wrapper}>
@@ -15,7 +19,7 @@ const LoginPage: React.FC = () => {
 						<EmailInput />
 						<PasswordInput />
 					</div>
-					<button className='defaultButton'>Войти</button>
+					<button className='defaultButton' onClick={doLogin}>Войти</button>
 				</div>
 			</div>
 		</Page>

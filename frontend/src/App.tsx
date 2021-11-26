@@ -4,8 +4,13 @@ import Header from './components/Header'
 import Content from './components/Content'
 import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
+import { useAppDispatch } from './hooks/redux'
+import { authThunk } from './store/reducers/userSlice'
 
 function App() {
+  const dispatch = useAppDispatch()
+  dispatch(authThunk())
+
   return (
     <div className='app'>
       <Header />

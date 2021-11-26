@@ -1,4 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '..'
+import UsersAPI from '../../api/users'
+import { authThunk } from './userSlice'
 
 
 type LoginPageState = {
@@ -9,22 +12,37 @@ type LoginPageState = {
 			visibility: boolean
 		}
 	}
+	error: string
 }
 
 const initialState: LoginPageState = {
 	inputs: {
-		email: 'email',
+		email: '',
 		password: {
-			text: 'password',
+			text: '',
 			visibility: false
 		}
-	}
+	},
+	error: ''
 }
+
+export const loginThunk = createAsyncThunk<string, void, {state: RootState}>(
+	'loginPage/loginThunk',
+	async (_, thunkAPI) => {
+		const { email, password: { text: passwordText } } = thunkAPI.getState().loginPage.inputs
+	 	const result = await UsersAPI.login(email, passwordText)
+		thunkAPI.dispatch(authThunk())
+		return result === null ? '' : result
+	}
+)
 
 export const loginPageSlice = createSlice({
 	name: 'loginPage',
 	initialState,
 	reducers: {
+		emailInputChange(state, action: PayloadAction<string>) {
+			state.inputs.email = action.payload
+		},
 		passwordInputChange(state, action: PayloadAction<string>) {
 			state.inputs.password.text = action.payload
 		},
@@ -34,6 +52,11 @@ export const loginPageSlice = createSlice({
 		hidePassword(state) {
 			state.inputs.password.visibility = false
 		}
+	},
+	extraReducers: (builder) => {
+		builder.addCase(loginThunk.fulfilled, (state, action: PayloadAction<string>) => {
+			
+		})
 	}
 })
 

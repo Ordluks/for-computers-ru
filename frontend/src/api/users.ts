@@ -1,4 +1,5 @@
 import api from '.'
+import { getCookieByName } from '../utils'
 
 
 export interface User {
@@ -24,6 +25,21 @@ const UsersAPI = {
 
 	async createUser(userData: UserCreatingData) {
 		return (await api.post<string | null>(this.root, userData)).data
+	},
+
+	async login(email: string, password: string): Promise<string | null> {
+		const res = (await api.post(this.root + '/login', {email, password})).data
+		if (res.errorMsg) return res.errorMsg
+		document.cookie = `autorization=${res.token}; secure; max-age=31536000`
+		return null
+	},
+
+	async auth() {
+		const token = getCookieByName('autorization')
+		if (token) {
+			return (await api.get<User | null>(this.root + '/login', { headers: { 'authorization': token } })).data
+		}
+		return null
 	}
 }
 

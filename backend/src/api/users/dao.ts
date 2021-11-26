@@ -1,11 +1,20 @@
 import { Database } from 'sqlite'
 import { v4 as uuid } from 'uuid'
 import passwordHash from 'password-hash'
+import jwt from 'jsonwebtoken'
+import { secretKey } from '../../config'
 import errorMessages from '../../models/errors'
-import { User, UserCreatingData, UserSendingData } from '../../models/User'
+import { User } from '../../models/User'
 
 
 let db: Database
+
+const generateToken = (id: string) => {
+	const payload = {
+		id
+	}
+	return jwt.sign(payload, secretKey, {expiresIn: 8760})
+}
 
 export default class UsersDAO {
 	static async injectDB(database: Database) {
@@ -16,11 +25,11 @@ export default class UsersDAO {
 		db = database
 	}
 
-	static async getUsers(): Promise<UserSendingData[]> {
+	static async getUsers(): Promise<User[]> {
 		return await db.all('SELECT id, email, firstName, lastName, accountCreatedDate FROM users')
 	}
 	
-	static async getUserById(id: string): Promise<UserSendingData> {
+	static async getUserById(id: string): Promise<User> {
 		const sql = `
 		SELECT id, email, firstName, lastName, accountCreatedDate
 		FROM users WHERE id = ?
@@ -28,7 +37,7 @@ export default class UsersDAO {
 		return await db.get(sql, [id])
 	}
 
-	private static async checkUserExists(userData: UserCreatingData): Promise<boolean> {
+	private static async checkUserExists(userData: User): Promise<boolean> {
 		const sql = `
 		SELECT * FROM users
 			WHERE email = ?
@@ -50,7 +59,7 @@ export default class UsersDAO {
 		return false
 	}
 
-	static async createUser(userData: UserCreatingData) {
+	static async createUser(userData: User) {
 		if (await this.checkUserExists(userData)) return errorMessages.registerError
 
 		const sql = `INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`
@@ -62,5 +71,26 @@ export default class UsersDAO {
 		const hashPassword = passwordHash.generate(password)
 
 		db.run(sql, [id, email, hashPassword, firstName, lastName, date])
+	}
+
+	static async autorisation(userData: User): Promise<{token: string} | {errorMsg: string}> {
+		const { email, password } = userData
+		const sql = `
+		SELECT id, email, password
+		FROM users WHERE email = ?
+		`
+		const findedUser: User = await db.get(sql, [email])
+
+		if (!findedUser) {
+			return {errorMsg: errorMessages.loginError}
+		}
+
+		const passwordVerified = passwordHash.verify(password, findedUser.password)
+		if (!passwordVerified) {
+			return {errorMsg: errorMessages.loginError}
+		}
+
+		const token = generateToken(findedUser.id)
+		return { token }
 	}
 }

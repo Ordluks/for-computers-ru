@@ -1,23 +1,8 @@
-export interface UserCreatingData {
-	email: string
-	password: string
-	firstName: string
-	lastName: string
-}
-
-export interface UserSendingData {
-	id: string
-	email: string
-	firstName: string
-	lastName: string
-	accountCratedDate: string
-}
-
 export interface User {
-	id: string
+	id?: string
 	email: string
-	password: string
+	password?: string
 	firstName: string
 	lastName: string
-	accountCratedDate: string
+	accountCratedDate?: string
 }

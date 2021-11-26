@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { Result } from 'check-password-strength'
 import UsersAPI, { UserCreatingData } from '../../api/users'
-import { checkPasswordStrenght } from '../../checkPasswordStrenght'
+import { checkPasswordStrenght } from '../../utils'
 import { RootState } from '..'
 
 

@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
-import { UserCreatingData } from '../../models/User'
+import jwt from 'jsonwebtoken'
+import { secretKey } from '../../config'
+import { User } from '../../models/User'
 import UsersDAO from './dao'
 
 
@@ -20,12 +22,36 @@ export default class UsersController {
 	}
 
 	static async createUserApi(req: Request, res: Response) {
-		const userData: UserCreatingData = req.body
+		const userData: User = req.body
 		const error = await UsersDAO.createUser(userData)
 		res.send(error)
 		if (!error) {
 			const { firstName, email } = userData
 			console.log(`Created user ${firstName} ${email}`)
 		}
+	}
+
+	static async login (req: Request, res: Response) {
+		const userData: User = req.body
+		const result = await UsersDAO.autorisation(userData)
+		res.json(result)
+
+		const { email } = userData
+		console.log(`Logining user ${email}`)
+	}
+
+	static async auth(req: Request, res: Response) {
+		const token = req.headers.authorization
+		let user: User | null = null
+		if (token) {
+			try {
+				const decoded = jwt.verify(token, secretKey)
+				user = await UsersDAO.getUserById((decoded as any).id)
+			} catch (error) {
+				
+			}
+		}
+
+		res.send(user)
 	}
 }

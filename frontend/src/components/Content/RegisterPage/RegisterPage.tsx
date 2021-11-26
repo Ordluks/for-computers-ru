@@ -25,7 +25,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ registerError, doCreateUser
 						<PasswordInput />
 					</div>
 
-					<p>{registerError}</p>
+					<p className={scss.errorMsg}>{registerError}</p>
 					<button className='defaultButton' onClick={doCreateUser}>Отправить</button>
 				</div>
 			</div>
