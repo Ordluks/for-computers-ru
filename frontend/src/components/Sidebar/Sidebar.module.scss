@@ -3,8 +3,12 @@
 
 .wrapper {
 	grid-area: sidebar;
-	padding-left: $main-padding;
-	border-left: 1px solid rgb(180, 180, 180);
+	margin-left: 20px;
+
+	.inner {
+		position: sticky;
+		top: 0;
+	}
 
 	h2 {
 		border-bottom: 3px solid $main-color;

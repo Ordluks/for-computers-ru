@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import { Route, Routes } from 'react-router'
 import AccountPage from './AccountPage'
@@ -10,7 +11,7 @@ import RegisterPage from './RegisterPage'
 
 const Content: React.FC = () => {
 	return (
-		<div className={scss.wrapper}>
+		<div className={classNames(scss.wrapper, 'block')}>
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path='/products/:category' element={<ProductsPage />} />
