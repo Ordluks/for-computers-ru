@@ -29,8 +29,10 @@ export const userSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(authThunk.fulfilled, (state, action) => {
 			const user = action.payload
-			if (user) state.isLogin = true
-			state.user = user
+			if (user) {
+				state.isLogin = true
+				state.user = user
+			}
 		})
 	}
 })

@@ -24,7 +24,7 @@ const UsersAPI = {
 	},
 
 	async createUser(userData: UserCreatingData) {
-		return (await api.post<string | null>(this.root, userData)).data
+		return (await api.post<string | null>(this.root, userData)).data || null
 	},
 
 	async login(email: string, password: string): Promise<string | null> {
@@ -37,7 +37,9 @@ const UsersAPI = {
 	async auth() {
 		const token = getCookieByName('autorization')
 		if (token) {
-			return (await api.get<User | null>(this.root + '/login', { headers: { 'authorization': token } })).data
+			const user = (await api.get<User | null>(this.root + '/login', { headers: { 'authorization': token } })).data
+			if (user === null) document.cookie = 'autorization=""; max-age=-1'
+			return user
 		}
 		return null
 	}

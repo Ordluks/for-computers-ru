@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import UsersAPI from '../../api/users'
+import { validateEmail } from '../../utils'
 import { authThunk } from './userSlice'
 
 
@@ -32,6 +33,22 @@ export const loginThunk = createAsyncThunk<string | null, void, {state: RootStat
 	'loginPage/loginThunk',
 	async (_, thunkAPI) => {
 		const { email, password: { text: passwordText } } = thunkAPI.getState().loginPage.inputs
+
+		let errorMsg = ''
+		if (!email) {
+			errorMsg = 'Вы не указали email'
+		}
+		else if (!validateEmail(email)) {
+			errorMsg = 'E-mail указан не корректно'
+		}
+		else if (!passwordText) {
+			errorMsg = 'Вы не указали пароль'
+		}
+
+		if (errorMsg !== '') {
+			return errorMsg
+		}
+
 	 	const result = await UsersAPI.login(email, passwordText)
 		thunkAPI.dispatch(authThunk())
 		return result

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { Result } from 'check-password-strength'
 import UsersAPI, { UserCreatingData } from '../../api/users'
-import { checkPasswordStrenght } from '../../utils'
+import { checkPasswordStrenght, validateEmail } from '../../utils'
 import { RootState } from '..'
 
 
@@ -38,13 +38,37 @@ const initialState: RegisterPageState = {
 export const createUserThunk = createAsyncThunk<string | null, void, {state: RootState}>(
 	'registerPage/createUserThunk',
 	async (_, thunkAPI) => {
-		thunkAPI.dispatch(registerPageSlice.actions.validateInputs())
-		const { error } = thunkAPI.getState().registerPage
+		const {
+			firstName, lastName, email,
+			password: {
+				text: passwordText,
+				difficult: passwordDificult
+			}
+		} = thunkAPI.getState().registerPage.inputs
+
+		let error = ''
+		if (!firstName) {
+			error = 'Вы не указали имя'
+		}
+		else if (!lastName) {
+			error = 'Вы не указали фамилию'
+		}
+		else if (!email) {
+			error = 'Вы не указали e-mail'
+		}
+		else if (!validateEmail(email)) {
+			error = 'E-mail указан не корректно'
+		}
+		else if (!passwordText) {
+			error = 'Вы не указали пароль'
+		}
+		else if (passwordDificult !== null && passwordDificult.id < 2) {
+			error = 'Недостаточно сильный пароль'
+		}
+
 		if (error !== '') {
 			return error
 		}
-
-		const { email, password: {text: passwordText}, firstName, lastName } = thunkAPI.getState().registerPage.inputs
 
 		const user: UserCreatingData = {
 			email,
@@ -52,8 +76,7 @@ export const createUserThunk = createAsyncThunk<string | null, void, {state: Roo
 			firstName,
 			lastName
 		}
-		const result = await UsersAPI.createUser(user)
-		return result
+		return await UsersAPI.createUser(user)
 	}
 ) 
 
@@ -79,36 +102,6 @@ export const registerPageSlice = createSlice({
 		},
 		hidePassword(state) {
 			state.inputs.password.visibility = false
-		},
-		validateInputs(state) {
-			const {
-				firstName, lastName, email,
-				password: {
-					text: passwordText,
-					difficult: passwordDificult
-				}
-			} = state.inputs
-
-			let error = ''
-			if (!firstName) {
-				error = 'Вы не указали имя'
-			}
-			else if (!lastName) {
-				error = 'Вы не указали фамилию'
-			}
-			else if (!email) {
-				error = 'Вы не указали e-mail'
-			}
-			else if ( !(/[a-zA-Z0-9]+@[a-z]+\.[a-z]+/gm).test(email) ) {
-				error = 'E-mail указан не корректно'
-			}
-			else if (!passwordText) {
-				error = 'Вы не указали пароль'
-			}
-			else if (passwordDificult !== null && passwordDificult.id < 2) {
-				error = 'Недостаточно сильный пароль'
-			}
-			state.error = error
 		}
 	},
 
@@ -116,7 +109,9 @@ export const registerPageSlice = createSlice({
 		builder.addCase(createUserThunk.fulfilled, (state, action: PayloadAction<string | null>) => {
 			const errorMsg = action.payload
 			if (errorMsg !== null) state.error = errorMsg
-			state.success = true
+			else {
+				state.success = true
+			}
 		})
 	}
 })

@@ -33,6 +33,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ registerError, isSuccess, d
 			</div>
 		)
 
+		
+
 	return (
 		<Page pageTitle='Регистрация'>
 			{content}

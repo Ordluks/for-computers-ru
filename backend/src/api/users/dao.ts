@@ -13,7 +13,7 @@ const generateToken = (id: string) => {
 	const payload = {
 		id
 	}
-	return jwt.sign(payload, secretKey, {expiresIn: 8760})
+	return jwt.sign(payload, secretKey, {expiresIn: "1year"})
 }
 
 export default class UsersDAO {
@@ -59,7 +59,7 @@ export default class UsersDAO {
 		return false
 	}
 
-	static async createUser(userData: User) {
+	static async createUser(userData: User): Promise<string | null> {
 		if (await this.checkUserExists(userData)) return errorMessages.registerError
 
 		const sql = `INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`
@@ -71,6 +71,7 @@ export default class UsersDAO {
 		const hashPassword = passwordHash.generate(password)
 
 		db.run(sql, [id, email, hashPassword, firstName, lastName, date])
+		return null
 	}
 
 	static async autorisation(userData: User): Promise<{token: string} | {errorMsg: string}> {

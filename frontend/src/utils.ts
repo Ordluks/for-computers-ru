@@ -32,6 +32,10 @@ export const checkPasswordStrenght = (password: string) => {
 	return passwordStrength(password, options)
 }
 
+export const validateEmail = (email: string) => {
+	return (/[a-zA-Z0-9]+@[a-z]+\.[a-z]+/gm).test(email)
+}
+
 export const getCookieByName = (name: string) => {
 	const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
