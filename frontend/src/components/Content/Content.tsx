@@ -14,6 +14,7 @@ const Content: React.FC = () => {
 		<div className={classNames(scss.wrapper, 'block')}>
 			<Routes>
 				<Route path='/' element={<MainPage />} />
+				<Route path='/products' element={<ProductsPage />} />
 				<Route path='/products/:category' element={<ProductsPage />} />
 				<Route path='/register' element={<RegisterPage />} />
 				<Route path='/login' element={<LoginPage />} />

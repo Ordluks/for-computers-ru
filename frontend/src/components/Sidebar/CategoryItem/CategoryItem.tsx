@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
 import { NavLink } from 'react-router-dom'
-import scss from './NavItem.module.scss'
+import scss from './CategoryItem.module.scss'
 
 
-type NavItemProps = {
+type CategoryItemProps = {
 	url: string,
 	text: string
 }
 
-const NavItem: FC<NavItemProps> = ({ url, text }) => {
+const CategoryItem: FC<CategoryItemProps> = ({ url, text }) => {
 	return <li className={scss.wrapper} ><NavLink to={url}>{text}</NavLink></li>
 }
 
-export default NavItem
+export default CategoryItem

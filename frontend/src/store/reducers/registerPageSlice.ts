@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { Result } from 'check-password-strength'
-import UsersAPI, { UserCreatingData } from '../../api/users'
+import UsersAPI from '../../api/users'
 import { checkPasswordStrenght, validateEmail } from '../../utils'
 import { RootState } from '..'
+import { User } from '../../models/User'
 
 
 type RegisterPageState = {
@@ -70,7 +71,7 @@ export const createUserThunk = createAsyncThunk<string | null, void, {state: Roo
 			return error
 		}
 
-		const user: UserCreatingData = {
+		const user: User = {
 			email,
 			password: passwordText,
 			firstName,

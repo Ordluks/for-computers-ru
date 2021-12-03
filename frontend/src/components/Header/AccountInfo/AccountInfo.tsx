@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { User } from '../../../api/users'
+import { User } from '../../../models/User'
 import scss from './AccountInfo.module.scss'
 
 

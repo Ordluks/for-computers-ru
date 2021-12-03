@@ -1,16 +1,7 @@
 import api from '.'
 import { getCookieByName } from '../utils'
+import { User } from '../models/User'
 
-
-export interface User {
-	id: string
-	email: string
-	firstName: string
-	lastName: string
-	accountCratedDate: string
-}
-
-export type UserCreatingData = Omit<User, 'id' | 'accountCratedDate'> & {password: string}
 
 const UsersAPI = {
 	root: '/users',
@@ -23,7 +14,7 @@ const UsersAPI = {
 		return (await api.get<User>(this.root + id)).data
 	},
 
-	async createUser(userData: UserCreatingData) {
+	async createUser(userData: User) {
 		return (await api.post<string | null>(this.root, userData)).data || null
 	},
 

@@ -15,7 +15,7 @@
 	},
 	"include": [
 			"src/**/*"
-, "api/users"	],
+, "api/users", "../models/User.ts"	],
 	"exclude": [
 			"dist",
 			"node_modules",

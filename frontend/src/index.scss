@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Poppins&display=swap');
-// https://fonts.google.com/share?selection.family=Fira%20Sans:wght@300;500%7CPoppins
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Rubik&display=swap');
+// https://fonts.google.com/share?selection.family=Fira%20Sans%7CRubik
 
 
 * {
 	margin: 0;
 	padding: 0;
+}
+
+body {
+	font: 15px 'Fira Sans', sans-serif;
 }
 
 input::-ms-reveal,

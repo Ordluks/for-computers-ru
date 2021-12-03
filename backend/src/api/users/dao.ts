@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
 import { secretKey } from '../../config'
-import errorMessages from '../../models/errors'
+import errorMessages from '../../errors'
 import { User } from '../../models/User'
 
 

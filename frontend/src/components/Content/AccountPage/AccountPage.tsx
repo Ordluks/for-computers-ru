@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { User } from '../../../api/users'
+import { User } from '../../../models/User'
 import Page from '../shared/Page'
 import scss from './AccountPage.module.scss'
 import UserCard from './UserCard'
