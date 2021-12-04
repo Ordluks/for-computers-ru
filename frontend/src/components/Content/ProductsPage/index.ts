@@ -5,8 +5,9 @@ import ProductsPageComponent from './ProductsPage'
 
 
 const mapStateToProps = (state: RootState) => ({
-	categoryName: state.productsPage.categoryName,
-	products: state.productsPage.products
+	categoryName: state.productsPage.selectedCategory.name,
+	products: state.productsPage.products,
+	isLoading: state.productsPage.isLoading
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

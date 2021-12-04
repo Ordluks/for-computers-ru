@@ -3,6 +3,7 @@ import sqlite3 from 'sqlite3'
 import server from './server'
 import { port, databasePath } from './config'
 import UsersDAO from './api/users/dao'
+import ProductsDAO from './api/products/dao'
 
 
 sqlite3.verbose()
@@ -16,5 +17,6 @@ open({
 	server.listen(port, () => {
 		console.log(`Server started on port ${port}`)
 		UsersDAO.injectDB(db)
+		ProductsDAO.injectDB(db)
 	})
 })

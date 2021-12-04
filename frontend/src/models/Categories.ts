@@ -32,7 +32,8 @@ class CategoriesList {
 		return Object.entries(this.list).find(value => {
 			const [ textId, category ] = value
 			return id === textId || id === category.id
-		})
+		}) ||
+		['all', {id: -1, name: 'Все товары'}]
 	}
 }
 

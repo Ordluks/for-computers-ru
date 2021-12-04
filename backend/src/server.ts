@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import users from './api/users/route'
+import products from './api/products/route'
 
 
 const app = express()
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 
 
 app.use('/api/v1/users', users)
+app.use('/api/v1/products', products)
 
 app.get('*', (_req, res) => {
 	res.send('Test')

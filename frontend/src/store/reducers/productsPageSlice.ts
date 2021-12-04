@@ -1,48 +1,79 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import categoriesList from '../../models/Categories'
+import { AppDispatch, RootState } from '..'
+import ProductsAPI from '../../api/products'
+import categoriesList, { Category } from '../../models/Categories'
 import { Product } from '../../models/Product'
 
 
 type ProductsPageState = {
-	categoryName: string
+	selectedCategory: Category
 	products: Product[]
+	isLoading: boolean
 }
 
 const initialState: ProductsPageState = {
-	categoryName: '',
-	products: [
-		{
-			id: '0',
-			name: 'Test',
-			description: 'Test product',
-			category: {id: 3, name: 'Другое'},
-			image: ''
-		},
-		{
-			id: '1',
-			name: 'Test2',
-			description: 'Test product 2',
-			category: {id: 3, name: 'Другое'},
-			image: ''
-		}
-	]
+	selectedCategory: {id: -1, name: ''},
+	products: [],
+	isLoading: false
 }
 
-export const loadThunk = createAsyncThunk<string, string | undefined>(
+export const loadThunk = createAsyncThunk<void, string | undefined, {dispatch: AppDispatch}>(
 	'productsPageSlice/loadThunk',
+	async (category, { dispatch }) => {
+		const { clearProducts, startLoading, endLoading } = productsPageSlice.actions
+
+		dispatch(clearProducts())
+		dispatch(startLoading())
+
+		dispatch(defineCategory(category))
+		.then(() => {
+			return dispatch(fetchProductsThunk())
+		})
+		.then(() => {
+			dispatch(endLoading())
+		})
+
+	}
+)
+
+export const defineCategory = createAsyncThunk<Category, string | undefined>(
+	'productsPageSlice/defineCategory',
 	async (category) => {
-		const [ textId, { name } ] = categoriesList.getCategory(category) || ['all', {id: -1, name: 'Все товары'}]
-		return name
+		return categoriesList.getCategory(category)[1]
+	}
+)
+
+export const fetchProductsThunk = createAsyncThunk<Product[], void, {state: RootState}>(
+	'productsPageSlice/fetchProductsThunk',
+	async (_, { getState }) => {
+		const { id: categoryId } = getState().productsPage.selectedCategory
+		return await ProductsAPI.fetchProducts(0, 30, categoryId)
 	}
 )
 
 export const productsPageSlice = createSlice({
 	name: 'productsPageSlice',
 	initialState,
-	reducers: {},
+	reducers: {
+		startLoading(state) {
+			state.isLoading = true
+		},
+		endLoading(state) {
+			state.isLoading = false
+		},
+		clearProducts(state) {
+			state.products = []
+		}
+	},
 	extraReducers: (builder) => {
-		builder.addCase(loadThunk.fulfilled, (state, action: PayloadAction<string>) => {
-			state.categoryName = action.payload
+		builder.addCase(defineCategory.fulfilled, (state, action: PayloadAction<Category>) => {
+			state.selectedCategory = action.payload
+		})
+
+		builder.addCase(fetchProductsThunk.fulfilled, (state, action: PayloadAction<Product[]>) => {
+			console.log(action.payload);
+			
+			state.products = state.products.concat(action.payload)
 		})
 	}
 })

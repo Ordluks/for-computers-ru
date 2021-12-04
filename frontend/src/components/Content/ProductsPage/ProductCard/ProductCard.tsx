@@ -1,5 +1,5 @@
 import React from 'react'
-import scss from 'ProductCard.module.scss'
+import scss from './ProductCard.module.scss'
 import { Product } from '../../../../models/Product'
 
 
@@ -11,7 +11,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 	const { name, description } = product
 
 	return (
-		<div>
+		<div className={scss.wrapper}>
 			<span>{name}</span>
 			<p>{description}</p>
 		</div>

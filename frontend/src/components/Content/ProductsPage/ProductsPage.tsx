@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Product } from '../../../models/Product'
+import LoadingScreen from '../shared/LoadingScreen'
 import Page from '../shared/Page'
 import ProductCard from './ProductCard'
 import scss from './ProductsPage.module.scss'
@@ -9,26 +10,31 @@ import scss from './ProductsPage.module.scss'
 type ProductsPageProps = {
 	categoryName: string
 	products: Product[]
+	isLoading: boolean
 	doLoad: (category: string | undefined) => void
 }
 
-const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, doLoad }) => {
+const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isLoading, doLoad }) => {
 	const { category } = useParams<'category'>()
 
-	doLoad(category)
+	useEffect(() => {
+		doLoad(category)
+	}, [category])
+
+	const productsList = isLoading ? <LoadingScreen /> :
+		<div>
+			{
+				products.map((value, index) => {
+					return <ProductCard product={value} key={index} />
+				})
+			}
+		</div>
 
 	return (
 		<Page pageTitle={categoryName} >
 			<div className='wrapper'>
 				<h1>{categoryName}</h1>
-				<div>
-					<ProductCard product={products[0]} />
-					{
-						products.map(value => {
-							return <ProductCard product={value} />
-						})
-					}
-				</div>
+				{productsList}
 			</div>
 		</Page>
 	)
