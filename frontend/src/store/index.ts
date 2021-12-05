@@ -3,13 +3,15 @@ import loginPageReducer from './reducers/loginPageSlice'
 import registerPageReducer from './reducers/registerPageSlice'
 import userReducer from './reducers/userSlice'
 import productsPageReducer from './reducers/productsPageSlice'
+import adminPanelPageReducer from './reducers/adminPanelPageSlice'
 
 
 const rootReducer = combineReducers({
 	user: userReducer,
 	registerPage: registerPageReducer,
 	loginPage: loginPageReducer,
-	productsPage: productsPageReducer
+	productsPage: productsPageReducer,
+	adminPanelPage: adminPanelPageReducer
 })
 
 export const setupStore = () => {

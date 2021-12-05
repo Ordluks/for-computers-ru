@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import { Route, Routes } from 'react-router'
 import AccountPage from './AccountPage'
+import AdminPanelPage from './AdminPanelPage'
 import scss from './Content.module.scss'
 import LoginPage from './LoginPage'
 import MainPage from './MainPage'
@@ -19,6 +20,7 @@ const Content: React.FC = () => {
 				<Route path='/register' element={<RegisterPage />} />
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/account' element={<AccountPage />} />
+				<Route path='/admin' element={<AdminPanelPage />} />
 			</Routes>
 		</div>
 	)

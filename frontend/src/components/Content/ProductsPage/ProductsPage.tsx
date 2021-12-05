@@ -12,13 +12,17 @@ type ProductsPageProps = {
 	products: Product[]
 	isLoading: boolean
 	doLoad: (category: string | undefined) => void
+	clearList: () => void
 }
 
-const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isLoading, doLoad }) => {
+const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isLoading, doLoad, clearList }) => {
 	const { category } = useParams<'category'>()
 
 	useEffect(() => {
 		doLoad(category)
+		return () => {
+			clearList()
+		}
 	}, [category])
 
 	const productsList = isLoading ? <LoadingScreen /> :

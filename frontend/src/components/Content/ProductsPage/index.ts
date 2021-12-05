@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
 import { AppDispatch, RootState } from '../../../store'
-import { loadThunk } from '../../../store/reducers/productsPageSlice'
+import { productsPageSlice, loadThunk } from '../../../store/reducers/productsPageSlice'
 import ProductsPageComponent from './ProductsPage'
+
+const { clearProducts } = productsPageSlice.actions
 
 
 const mapStateToProps = (state: RootState) => ({
@@ -13,6 +15,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
 	doLoad(category: string | undefined) {
 		dispatch(loadThunk(category))
+	},
+	clearList() {
+		dispatch(clearProducts())
 	}
 })
 
