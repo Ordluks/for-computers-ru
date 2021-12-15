@@ -23,9 +23,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 				<img className={scss.image} src={image} alt={name} />
 				<span className={scss.name} >{name}</span>
 			</NavLink>
-			<div className={scss.prices}>
-				<span className={cx(scss.regularPrice, {notActual: price !== discountPrice})} >{splitNumber(price)}</span>
-				<span className={scss.discountPrice}>{discountPrice !== price ? splitNumber(discountPrice) : null}</span>
+			<div className={scss.unclickable}>
+				<div className={scss.prices}>
+					<span className={cx(scss.regularPrice, {notActual: price !== discountPrice})} >{splitNumber(price) + '₽'}</span>
+					<span className={scss.discountPrice}>{discountPrice !== price ? splitNumber(discountPrice) + '₽' : null}</span>
+				</div>
 			</div>
 		</div>
 	)

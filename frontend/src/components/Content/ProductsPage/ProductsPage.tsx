@@ -4,18 +4,20 @@ import { Product } from '../../../models/Product'
 import LoadingScreen from '../shared/LoadingScreen'
 import Page from '../shared/Page'
 import ProductCard from './ProductCard'
+import ProductsListPageBtn from './ProductsListPageBtn'
 import scss from './ProductsPage.module.scss'
 
 
 type ProductsPageProps = {
 	categoryName: string
 	products: Product[]
+	pagesCount: number
 	isLoading: boolean
 	doLoad: (category: string | undefined) => void
 	clearList: () => void
 }
 
-const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isLoading, doLoad, clearList }) => {
+const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, pagesCount, isLoading, doLoad, clearList }) => {
 	const { category } = useParams<'category'>()
 
 	useEffect(() => {
@@ -25,16 +27,27 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isL
 		}
 	}, [category])
 
-	const productsList = isLoading ? <LoadingScreen /> :
-		products.map((value, index) => {
-			return <ProductCard product={value} key={index} />
-		})
+	const productsList = products.map((value, index) => {
+		return <ProductCard product={value} key={index} />
+	})
+
+	const content = isLoading ? <LoadingScreen /> :
+		<div className={scss.products}>
+			{productsList}
+		</div>
+
+	const pages = Array(pagesCount).fill(null).map((_, index) => {
+		return <ProductsListPageBtn num={index} key={index} />
+	})
 
 	return (
 		<Page pageTitle={categoryName} >
 			<div className={scss.wrapper}>
 				<h1>{categoryName}</h1>
-				<div className={scss.products}>{productsList}</div>
+				{content}
+				<div className={scss.pages}>
+					{pages}
+				</div>
 			</div>
 		</Page>
 	)

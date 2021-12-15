@@ -3,45 +3,43 @@
 	height: 400px;
 	padding: 8px;
 	box-sizing: border-box;
+	
+	border: 1px solid rgb(202, 202, 202);
+	border-radius: 3px;
 
-	border: 1px solid rgb(199, 199, 199);
-	border-radius: 5px;
-	margin-bottom: 30px;
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	.image {
-		width: 220px;
-	}
+	display: grid;
+	grid-template-rows: 4fr 1fr;
+	grid-template-columns: 1fr;
 
 	.link {
 		color: black;
 		text-decoration: none;
-	}
-
-	.name {
 		font-weight: bold;
+
+		.image {
+			width: 100%;
+		}
 	}
 
-	.prices {
-		margin-top: auto;
-		width: 100%;
-		font-size: 20px;
+	.unclickable {
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
 
-		*::after {
-			content: '₽';
-		}
+		.prices {
+			font-size: 20px;
 
-		.regularPrice {
-			&.notActual {
-				text-decoration: line-through;
+			.regularPrice {
+				margin-right: 10px;
+
+				&.notActual {
+					text-decoration: line-through;
+					font-size: 18px;
+					color: adjust-color($color: black, $lightness: 50%);
+				}
 			}
 		}
-
-		.discountPrice {
-			margin-left: 10px;
-		}
 	}
+
+	
 }

@@ -14,7 +14,8 @@ export default class ProductsController {
 		const { start, count } = req.query
 		const category = req.query.category || null
 		const products = await ProductsDAO.getProducts(start, count, category)
-		res.json(products)
+		const allProductsCount = await ProductsDAO.getProductsCount(category)
+		res.json({products, allProductsCount})
 	}
 
 	static async createProductApi(req: Request<{}, {}, ProductCreating>, res: Response) {

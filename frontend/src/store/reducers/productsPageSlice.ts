@@ -1,19 +1,25 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '..'
-import ProductsAPI from '../../api/products'
+import ProductsAPI, { FetchProductsResult } from '../../api/products'
 import categoriesList, { Category } from '../../models/Categories'
 import { Product } from '../../models/Product'
 
 
+const PRODUCTS_ON_PAGE = 30
+
 type ProductsPageState = {
 	selectedCategory: Category
 	products: Product[]
+	pagesCount: number
+	selectedPage: number
 	isLoading: boolean
 }
 
 const initialState: ProductsPageState = {
 	selectedCategory: {id: -1, name: ''},
 	products: [],
+	pagesCount: 0,
+	selectedPage: 0,
 	isLoading: false
 }
 
@@ -43,11 +49,20 @@ export const defineCategory = createAsyncThunk<Category, string | undefined>(
 	}
 )
 
-export const fetchProductsThunk = createAsyncThunk<Product[], void, {state: RootState}>(
+export const fetchProductsThunk = createAsyncThunk<FetchProductsResult, void, {state: RootState}>(
 	'productsPageSlice/fetchProductsThunk',
 	async (_, { getState }) => {
-		const { id: categoryId } = getState().productsPage.selectedCategory
-		return await ProductsAPI.fetchProducts(0, 30, categoryId)
+		const { selectedCategory: {id: categoryId}, selectedPage } = getState().productsPage
+		return await ProductsAPI.fetchProducts(selectedPage * PRODUCTS_ON_PAGE, PRODUCTS_ON_PAGE, categoryId)
+	}
+)
+
+export const changePageThunk = createAsyncThunk<void, number, {dispatch: AppDispatch}>(
+	'productsPageSlice/changePageThunk',
+	async (num: number, { dispatch }) => {
+		const {selectPage} = productsPageSlice.actions
+		dispatch(selectPage(num))
+		dispatch(fetchProductsThunk())
 	}
 )
 
@@ -63,6 +78,10 @@ export const productsPageSlice = createSlice({
 		},
 		clearProducts(state) {
 			state.products = []
+			state.pagesCount = 0
+		},
+		selectPage(state, action: PayloadAction<number>) {
+			state.selectedPage = action.payload
 		}
 	},
 	extraReducers: (builder) => {
@@ -70,8 +89,10 @@ export const productsPageSlice = createSlice({
 			state.selectedCategory = action.payload
 		})
 
-		builder.addCase(fetchProductsThunk.fulfilled, (state, action: PayloadAction<Product[]>) => {
-			state.products = state.products.concat(action.payload)
+		builder.addCase(fetchProductsThunk.fulfilled, (state, action: PayloadAction<FetchProductsResult>) => {
+			const { products, allProductsCount } = action.payload
+			state.products = products
+			state.pagesCount = Math.ceil(allProductsCount / PRODUCTS_ON_PAGE)
 		})
 	}
 })

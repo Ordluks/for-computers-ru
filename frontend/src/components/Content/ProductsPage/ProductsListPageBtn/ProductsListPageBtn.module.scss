@@ -1,0 +1,14 @@
+.wrapper {
+	$btn-color: rgb(82, 82, 82);
+	padding: 5px 8px;
+	background: 0;
+	border: 1px solid $btn-color;
+	color: $btn-color;
+	cursor: pointer;
+
+	&:hover {
+		$hovered-color: adjust-color($color: $btn-color, $lightness: -35%);
+		color: $hovered-color;
+		border-color: $hovered-color;
+	}
+}

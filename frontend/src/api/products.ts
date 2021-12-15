@@ -4,16 +4,18 @@ import { Product } from '../models/Product'
 
 const url = '/products'
 
+
+export interface FetchProductsResult {
+	products: Product[]
+	allProductsCount: number
+}
+
 export default class ProductsAPI {
 	static async fetchProducts(start: number, count: number, category: number) {
-		const products = (await api.get<Product[]>(
+		const { products, allProductsCount } = (await api.get<FetchProductsResult>(
 			`${url}?start=${start}&count=${count}${category !== -1 ? `&category=${category}` : ''}`)).data
-		return products.map(value => {
-			return {
-				...value,
-				image: 'data:image/jpeg;base64,' + value.image
-			}
-		})
+
+		return {products, allProductsCount}
 	}
 
 	static async createProduct(product: Product) {

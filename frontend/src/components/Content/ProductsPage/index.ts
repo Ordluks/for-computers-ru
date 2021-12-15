@@ -9,6 +9,7 @@ const { clearProducts } = productsPageSlice.actions
 const mapStateToProps = (state: RootState) => ({
 	categoryName: state.productsPage.selectedCategory.name,
 	products: state.productsPage.products,
+	pagesCount: state.productsPage.pagesCount,
 	isLoading: state.productsPage.isLoading
 })
 

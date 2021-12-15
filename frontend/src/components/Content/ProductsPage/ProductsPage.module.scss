@@ -6,4 +6,11 @@
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	}
+
+	.pages {
+		display: flex;
+		justify-content: center;
+		column-gap: 3px;
+		margin-top: 40px;
+	}
 }

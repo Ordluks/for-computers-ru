@@ -27,15 +27,20 @@ export default class ProductsDAO {
 		const products = result.map(value => {
 			return {
 				...value,
-				image: value.image.toString('base64')
+				image: 'data:image/jpeg;base64,' + value.image.toString('base64')
 			}
 		})
 
 		return products
 	}
 
+	static async getProductsCount(category?: number) {
+		const byCategory = category ? ` WHERE category = ${category}` : ''
+		return (await db.get<{ 'COUNT(*)': number }>('SELECT COUNT(*) FROM products' + byCategory))['COUNT(*)']
+	}
+
 	static async createProduct(product: ProductCreating) {
-		const id = (await db.get<{ 'COUNT(*)': number }>('SELECT COUNT(*) FROM products'))['COUNT(*)']
+		const id = this.getProductsCount()
 
 		const { name, description, category, price, discount, image } = product
 
