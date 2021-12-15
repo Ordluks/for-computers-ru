@@ -44,3 +44,22 @@ export const getCookieByName = (name: string) => {
 		if (poped) return poped.split(';').shift()
 	}
 }
+
+export const splitNumber = (value: number) => {
+	const strValue = String(value)
+	let splitedValue = ''
+	let part = ''
+	for (let i = strValue.length - 1; i >= 0 ; i--) {
+		const digit = strValue[i]
+		part += digit
+		
+		if (i === 0) {
+			splitedValue += part
+		}
+		else if (part.length === 3) {
+			splitedValue += part + ' '
+			part = ''
+		}
+	}
+	return splitedValue.split('').reverse().join('')
+}

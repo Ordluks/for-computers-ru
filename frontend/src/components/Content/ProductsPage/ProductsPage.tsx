@@ -26,19 +26,15 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ categoryName, products, isL
 	}, [category])
 
 	const productsList = isLoading ? <LoadingScreen /> :
-		<div>
-			{
-				products.map((value, index) => {
-					return <ProductCard product={value} key={index} />
-				})
-			}
-		</div>
+		products.map((value, index) => {
+			return <ProductCard product={value} key={index} />
+		})
 
 	return (
 		<Page pageTitle={categoryName} >
-			<div className='wrapper'>
+			<div className={scss.wrapper}>
 				<h1>{categoryName}</h1>
-				{productsList}
+				<div className={scss.products}>{productsList}</div>
 			</div>
 		</Page>
 	)

@@ -1,11 +1,11 @@
 import { Category } from './Categories'
 
 export interface Product {
-	id: string
+	id?: string
 	name: string
 	description: string
 	category: Category
 	price: number
 	discount: number
-	image: any
+	image: string
 }

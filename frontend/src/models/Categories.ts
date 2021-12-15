@@ -10,16 +10,20 @@ class CategoriesList {
 			id: 0,
 			name: 'Клавиатуры'
 		},
-		controllers: {
+		mouses: {
 			id: 1,
+			name: 'Мыши'
+		},
+		controllers: {
+			id: 2,
 			name: 'Контроллеры'
 		},
 		monitors: {
-			id: 2,
+			id: 3,
 			name: 'Мониторы'
 		},
 		others: {
-			id: 3,
+			id: 4,
 			name: 'Другое'
 		}
 	}

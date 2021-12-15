@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { AppDispatch, RootState } from '../../../store'
-import { uploadImageThunk } from '../../../store/reducers/adminPanelPageSlice'
+import { createProductThunk, uploadImageThunk } from '../../../store/reducers/adminPanelPageSlice'
 import AdminPanelPageComponent from './AdminPanelPage'
 
 
@@ -11,6 +11,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
 	doUploadImage(image: File) {
 		dispatch(uploadImageThunk(image))
+	},
+	create() {
+		dispatch(createProductThunk())
 	}
 })
 

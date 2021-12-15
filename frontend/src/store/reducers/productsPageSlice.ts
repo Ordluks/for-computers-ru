@@ -71,8 +71,6 @@ export const productsPageSlice = createSlice({
 		})
 
 		builder.addCase(fetchProductsThunk.fulfilled, (state, action: PayloadAction<Product[]>) => {
-			console.log(action.payload);
-			
 			state.products = state.products.concat(action.payload)
 		})
 	}
