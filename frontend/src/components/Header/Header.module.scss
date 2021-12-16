@@ -8,7 +8,7 @@
 	background: $main-color;
 
 	display: flex;
-	justify-content: space-between;
+	// justify-content: space-between;
 	align-items: center;
 	padding: 20px $content-padding;
 
@@ -19,6 +19,30 @@
 			font: 25px 'Rubik', sans-serif;
 			color: white;
 			text-decoration: none;
+		}
+	}
+
+	nav {
+		margin-left: 35px;
+
+		ul {
+			li {
+				display: inline-block;
+				
+				a {
+					color: rgba(255, 255, 255, 0.85);
+					text-decoration: none;
+				}
+
+				&:not(:last-child) {
+					margin-right: 20px;
+				}
+
+				&:hover {
+					text-decoration: underline;
+				}
+
+			}
 		}
 	}
 }
