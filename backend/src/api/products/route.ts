@@ -8,4 +8,7 @@ products.route('/')
 .get(ProductsController.getProductsApi)
 .post(ProductsController.createProductApi)
 
+products.route('/id/:id')
+.get(ProductsController.getProductByIdApi)
+
 export default products

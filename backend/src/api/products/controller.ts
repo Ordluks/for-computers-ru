@@ -18,6 +18,12 @@ export default class ProductsController {
 		res.json({products, allProductsCount})
 	}
 
+	static async getProductByIdApi(req: Request<{id: number}>, res: Response) {
+		const { id } = req.params
+		const product = await ProductsDAO.getProductById(id)
+		res.json(product)
+	}
+
 	static async createProductApi(req: Request<{}, {}, ProductCreating>, res: Response) {
 		const product = req.body
 		await ProductsDAO.createProduct(product)

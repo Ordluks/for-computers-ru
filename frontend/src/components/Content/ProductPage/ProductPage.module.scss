@@ -1,0 +1,16 @@
+.wrapper {
+	.info {
+		display: grid;
+		grid-template: 
+		'n i'
+		'd i';
+		grid-template-rows: auto 1fr;
+		gap: 30px;
+
+		.name {grid-area: n;}
+
+		.image {grid-area: i;}
+
+		.description {grid-area: d;}
+	}
+}

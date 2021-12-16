@@ -23,13 +23,7 @@ export default class ProductsDAO {
 			[count, start]
 		]
 		const result = await db.all<Product[]>(sql, params)
-
-		const products = result.map(value => {
-			return {
-				...value,
-				image: 'data:image/jpeg;base64,' + value.image.toString('base64')
-			}
-		})
+		const products = result.map(value => processProductImage(value))
 
 		return products
 	}
@@ -37,6 +31,11 @@ export default class ProductsDAO {
 	static async getProductsCount(category?: number) {
 		const byCategory = category ? ` WHERE category = ${category}` : ''
 		return (await db.get<{ 'COUNT(*)': number }>('SELECT COUNT(*) FROM products' + byCategory))['COUNT(*)']
+	}
+
+	static async getProductById(id: number) {
+		const sql = 'SELECT * FROM products WHERE id = ?'
+		return processProductImage(await db.get<Product>(sql, [id]))
 	}
 
 	static async createProduct(product: ProductCreating) {
@@ -50,3 +49,8 @@ export default class ProductsDAO {
 		await db.run(sql, [id, name, description, category, price, discount, base64.decode(image)])
 	}
 }
+
+const processProductImage = (product: Product) => ({
+	...product,
+	image: 'data:image/jpeg;base64,' + product.image.toString('base64')
+})

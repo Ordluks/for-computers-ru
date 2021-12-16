@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 
 type PageProps = {
@@ -8,7 +8,9 @@ type PageProps = {
 
 
 const Page: FC<PageProps> = ({ pageTitle, children }) => {
-	document.title = pageTitle + ' | ForComputers.ru'
+	useEffect(() => {
+		document.title = pageTitle + ' | ForComputers.ru'
+	})
 	return children
 }
 

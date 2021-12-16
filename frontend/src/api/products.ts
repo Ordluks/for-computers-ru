@@ -18,6 +18,10 @@ export default class ProductsAPI {
 		return {products, allProductsCount}
 	}
 
+	static async fetchProductById(id: number) {
+		return (await (api.get<Product>(`${url}/id/${id}`))).data
+	}
+
 	static async createProduct(product: Product) {
 		const sendingProduct = {
 			...product,

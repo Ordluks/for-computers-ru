@@ -6,6 +6,7 @@ import AdminPanelPage from './AdminPanelPage'
 import scss from './Content.module.scss'
 import LoginPage from './LoginPage'
 import MainPage from './MainPage'
+import ProductPage from './ProductPage'
 import ProductsPage from './ProductsPage'
 import RegisterPage from './RegisterPage'
 
@@ -17,6 +18,7 @@ const Content: React.FC = () => {
 				<Route path='/' element={<MainPage />} />
 				<Route path='/products' element={<ProductsPage />} />
 				<Route path='/products/:category' element={<ProductsPage />} />
+				<Route path='/product/:id' element={<ProductPage />} />
 				<Route path='/register' element={<RegisterPage />} />
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/account' element={<AccountPage />} />

@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import loginPageReducer from './reducers/loginPageSlice'
 import registerPageReducer from './reducers/registerPageSlice'
 import userReducer from './reducers/userSlice'
+import productPageReducer from './reducers/productPageSlice'
 import productsPageReducer from './reducers/productsPageSlice'
 import adminPanelPageReducer from './reducers/adminPanelPageSlice'
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
 	user: userReducer,
 	registerPage: registerPageReducer,
 	loginPage: loginPageReducer,
+	productPage: productPageReducer,
 	productsPage: productsPageReducer,
 	adminPanelPage: adminPanelPageReducer
 })

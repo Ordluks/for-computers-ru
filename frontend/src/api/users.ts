@@ -6,10 +6,6 @@ import { User } from '../models/User'
 const url = '/users'
 
 export default class UsersAPI {
-	static async fetchUsers() {
-		return (await api.get<User[]>(url)).data
-	}
-
 	static async fetchUserById(id: string) {
 		return (await api.get<User>(url + id)).data
 	}
