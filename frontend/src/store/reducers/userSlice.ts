@@ -16,8 +16,10 @@ const initialState: UserState = {
 export const authThunk = createAsyncThunk(
 	'userSlice/authThunk',
 	async () => {
-		const user = await UsersAPI.auth()
-		return user
+		const id = await UsersAPI.auth()
+		
+		if (!id) return null
+		return await UsersAPI.fetchUserById(id)
 	}
 )
 
@@ -31,7 +33,7 @@ export const userSlice = createSlice({
 		builder.addCase(authThunk.fulfilled, (state, action) => {
 			const user = action.payload
 			if (user) {
-				state.isLogin = true
+				state.isLogin = user ? true : false
 				state.user = user
 			}
 		})

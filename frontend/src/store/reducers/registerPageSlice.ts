@@ -75,7 +75,8 @@ export const createUserThunk = createAsyncThunk<string | null, void, {state: Roo
 			email,
 			password: passwordText,
 			firstName,
-			lastName
+			lastName,
+			basket: []
 		}
 		return await UsersAPI.createUser(user)
 	}

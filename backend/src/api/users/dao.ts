@@ -26,12 +26,12 @@ export default class UsersDAO {
 	}
 
 	static async getUsers(): Promise<User[]> {
-		return await db.all('SELECT id, email, firstName, lastName, accountCreatedDate FROM users')
+		return await db.all('SELECT id, email, firstName, lastName, accountCreatedDate, basket FROM users')
 	}
 	
 	static async getUserById(id: string): Promise<User> {
 		const sql = `
-		SELECT id, email, firstName, lastName, accountCreatedDate
+		SELECT id, email, firstName, lastName, accountCreatedDate, basket
 		FROM users WHERE id = ?
 		`
 		return await db.get(sql, [id])
@@ -62,15 +62,15 @@ export default class UsersDAO {
 	static async createUser(userData: User): Promise<string | null> {
 		if (await this.checkUserExists(userData)) return errorMessages.registerError
 
-		const sql = `INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)`
-		const { email, password, firstName, lastName } = userData
+		const sql = `INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)`
+		const { email, password, firstName, lastName, basket } = userData
 
 		const id = uuid()
 		const date = Date.now()
 
 		const hashPassword = passwordHash.generate(password)
 
-		db.run(sql, [id, email, hashPassword, firstName, lastName, date])
+		db.run(sql, [id, email, hashPassword, firstName, lastName, date, basket])
 		return null
 	}
 
@@ -93,5 +93,9 @@ export default class UsersDAO {
 
 		const token = generateToken(findedUser.id)
 		return { token }
+	}
+
+	static async addProductToBucket() {
+
 	}
 }

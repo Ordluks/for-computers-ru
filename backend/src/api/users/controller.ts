@@ -5,20 +5,24 @@ import { User } from '../../models/User'
 import UsersDAO from './dao'
 
 
-const toJSON = (obj: any) => JSON.stringify(obj, null, 2)
-
 export default class UsersController {
 	static async getUsersApi(_req: Request, res: Response) {
 		const result = await UsersDAO.getUsers()
-		res.send(toJSON(result))
-		console.log('Get all users')
+		res.json(result)
 	}
 
 	static async getUserByIdApi(req: Request, res: Response) {
 		const { id } = req.params
 		const result = await UsersDAO.getUserById(id)
-		res.send(toJSON(result))
-		console.log(`Get user whith id = ${id}`)
+
+		try {
+			res.json({
+				...result,
+				basket: JSON.parse(result.basket)
+			})
+		} catch (error) {
+			res.sendStatus(500)
+		}
 	}
 
 	static async createUserApi(req: Request, res: Response) {
@@ -42,16 +46,16 @@ export default class UsersController {
 
 	static async auth(req: Request, res: Response) {
 		const token = req.headers.authorization
-		let user: User | null = null
+		let id: string | null = null
 		if (token) {
 			try {
 				const decoded = jwt.verify(token, secretKey)
-				user = await UsersDAO.getUserById((decoded as any).id)
+				id = (await UsersDAO.getUserById((decoded as any).id)).id
 			} catch (error) {
-				
+
 			}
 		}
 
-		res.send(user)
+		res.send(id)
 	}
 }

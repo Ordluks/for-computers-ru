@@ -1,3 +1,5 @@
+import { BucketNode as BasketNode } from './BucketNode'
+
 export interface User {
 	id?: string
 	email: string
@@ -5,4 +7,5 @@ export interface User {
 	firstName: string
 	lastName: string
 	accountCratedDate?: string
+	basket: BasketNode[]
 }

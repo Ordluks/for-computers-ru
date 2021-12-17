@@ -9,3 +9,8 @@ export interface Product {
 	discount: number
 	image: string
 }
+
+export interface ProductInBasket {
+	product: Product
+	count: number
+}

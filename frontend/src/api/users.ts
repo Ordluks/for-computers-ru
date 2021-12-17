@@ -6,8 +6,8 @@ import { User } from '../models/User'
 const url = '/users'
 
 export default class UsersAPI {
-	static async fetchUserById(id: string) {
-		return (await api.get<User>(url + id)).data
+	static async fetchUserById(id: string): Promise<User> {
+		return (await api.get(`${url}/id/${id}`)).data
 	}
 
 	static async createUser(userData: User) {
@@ -21,13 +21,14 @@ export default class UsersAPI {
 		return null
 	}
 
-	static async auth() {
+	static async auth(): Promise<string | void> {
 		const token = getCookieByName('autorization')
 		if (token) {
-			const user = (await api.get<User | null>(url + '/login', { headers: { 'authorization': token } })).data
-			if (user === null) document.cookie = 'autorization=""; max-age=-1'
-			return user
+			const res = await api.get<string>(url + '/login', { headers: { 'authorization': token } })
+			if (!res.data) {
+				return
+			}
+			return res.data
 		}
-		return null
 	}
 }
