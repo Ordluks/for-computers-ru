@@ -1,22 +1,25 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import ProductsAPI from '../../api/products'
-import { Product, ProductInBasket } from '../../models/Product'
+import { ProductInBasket } from '../../models/Product'
+import { Status } from '../../models/Status'
 
 
 type BucketPageState = {
-	products: ProductInBasket[]
+	products: ProductInBasket[],
+	status: Status
 }
 
 const initialState: BucketPageState = {
-	products: []
+	products: [],
+	status: 'idle'
 }
 
-export const loadThunk = createAsyncThunk<ProductInBasket[], void, {state: RootState}>(
+export const loadThunk = createAsyncThunk<ProductInBasket[], void, { state: RootState }>(
 	'basketPage/loadThunk',
 	async (_, { getState }) => {
 		const basket = getState().user.user?.basket
-		if ( !basket ) return []
+		if (!basket) return []
 		const productsFromBasket = await Promise.all(basket.map(async ({ id, count }): Promise<ProductInBasket> => {
 			const product = await ProductsAPI.fetchProductById(id)
 			return {

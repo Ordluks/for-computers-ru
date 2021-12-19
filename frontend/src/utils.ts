@@ -45,6 +45,8 @@ export const getCookieByName = (name: string) => {
 	}
 }
 
+export const subPercent = (num: number, persent: number) => num - Math.round(num / 100 * persent)
+
 export const splitNumber = (value: number) => {
 	const strValue = String(value)
 	let splitedValue = ''

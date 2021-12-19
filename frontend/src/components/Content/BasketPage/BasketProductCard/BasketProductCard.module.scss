@@ -1,0 +1,49 @@
+.wraper {
+	$h: 100px;
+	height: $h;
+	padding: 10px 0;
+
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr auto;
+
+	&:not(:last-child) {
+		border-bottom: 1px solid rgb(131, 131, 131);
+	}
+
+	a {
+		display: flex;
+		align-items: flex-start;
+
+		color: black;
+		text-decoration: none;
+
+		.image {
+			height: $h;
+		}
+	}
+
+	.unclickable {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+
+		.prices {
+			font-size: 18px;
+
+			.regularPrice {
+				&.notActual {
+					margin-right: 10px;
+					text-decoration: line-through;
+					font-size: 18px;
+					color: adjust-color($color: black, $lightness: 50%);
+				}
+			}
+		}
+
+		.count {
+			font-size: 16px;
+		}
+	}
+	
+}

@@ -6,7 +6,8 @@ import BasketPageComponent from './BasketPage'
 
 const mapStateToProps = (state: RootState) => ({
 	products: state.basketPage.products,
-	isLogin: state.user.isLogin
+	isLogin: state.user.isLogin,
+	status: state.basketPage.status
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

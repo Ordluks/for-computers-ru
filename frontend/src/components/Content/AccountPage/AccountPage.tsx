@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { User } from '../../../models/User'
+import NotAuth from '../shared/NotAuth'
 import Page from '../shared/Page'
 import scss from './AccountPage.module.scss'
 import UserCard from './UserCard'
@@ -23,13 +24,7 @@ const AccountPage: React.FC<AccountPageProps> = ({ user }) => {
 		</div>
 	)
 
-	const notAuth = (
-		<p className={scss.notAuth}>
-			Вы не вошли в аккаунт
-		</p>
-	)
-
-	const content = user ? userInfo : notAuth
+	const content = user ? userInfo : <NotAuth />
 
 	return (
 		<Page pageTitle='Личный кабинет'>
