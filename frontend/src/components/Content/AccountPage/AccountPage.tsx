@@ -16,11 +16,16 @@ const AccountPage: React.FC<AccountPageProps> = ({ user }) => {
 	const userInfo = (
 		<div className={scss.userInfo}>
 			<UserCard user={user} />
-				<NavLink to='/basket'>
-					<button className={classNames(scss.cardButton, 'defaultButton')}>
+			<NavLink to='/basket'>
+				<div className={scss.buttons}>
+					<button className='defaultButton'>
 						Корзина
 					</button>
-				</NavLink>
+					<button className='defaultButton'>
+						Выйти
+					</button>
+				</div>
+			</NavLink>
 		</div>
 	)
 

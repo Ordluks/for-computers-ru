@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import { secretKey } from '../../config'
 import errorMessages from '../../errors'
 import { User } from '../../models/User'
+import { BasketNode } from '../../models/Product'
 
 
 let db: Database
@@ -70,7 +71,7 @@ export default class UsersDAO {
 
 		const hashPassword = passwordHash.generate(password)
 
-		db.run(sql, [id, email, hashPassword, firstName, lastName, date, basket])
+		await db.run(sql, [id, email, hashPassword, firstName, lastName, date, basket])
 		return null
 	}
 
@@ -95,7 +96,12 @@ export default class UsersDAO {
 		return { token }
 	}
 
-	static async addProductToBucket() {
-
+	static async setBasket(userId: string, basket: BasketNode[]) {
+		const sql = `
+		UPDATE users
+		SET basket = ?
+		WHERE id = ?
+		`
+		await db.run(sql, [JSON.stringify(basket), userId])
 	}
 }

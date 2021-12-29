@@ -15,3 +15,8 @@ export interface Product extends ProductBase {
 export interface ProductCreating extends ProductBase {
 	image: string
 }
+
+export interface BasketNode {
+	id: number
+	count: number
+}

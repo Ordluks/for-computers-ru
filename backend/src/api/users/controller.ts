@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { secretKey } from '../../config'
+import { BasketNode } from '../../models/Product'
 import { User } from '../../models/User'
 import UsersDAO from './dao'
 
@@ -57,5 +58,12 @@ export default class UsersController {
 		}
 
 		res.send(id)
+	}
+
+	static async setBasketApi(req: Request<{id: string}>, res: Response) {
+		const basket = req.body
+		const userId = req.params.id
+		await UsersDAO.setBasket(userId, basket)
+		res.sendStatus(200)
 	}
 }

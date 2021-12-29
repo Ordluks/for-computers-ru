@@ -42,7 +42,15 @@
 		}
 
 		.count {
-			font-size: 16px;
+			font-size: 14px;
+
+			div {
+				align-items: flex-end;
+			}
+
+			input[type=number] {
+				width: 50px;
+			}
 		}
 	}
 	

@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '..'
 import UsersAPI from '../../api/users'
+import { BasketNode } from '../../models/BasketNode'
 import { User } from '../../models/User'
 
 
@@ -14,7 +16,7 @@ const initialState: UserState = {
 }
 
 export const authThunk = createAsyncThunk(
-	'userSlice/authThunk',
+	'user/authThunk',
 	async () => {
 		const id = await UsersAPI.auth()
 		
@@ -23,8 +25,24 @@ export const authThunk = createAsyncThunk(
 	}
 )
 
+export const changeBasketThunk = createAsyncThunk<BasketNode[] | void, BasketNode, {state: RootState}>(
+	'user/changeBasketThunk',
+	async (newProduct, { getState }) => {
+		const user = getState().user.user
+		if (!user) return
+		const basket = user.basket.map(value => {
+			const { id } = value
+			if (id === newProduct.id) return {id, count: newProduct.count}
+			return value
+		})
+
+		await UsersAPI.changeBasket(user.id as string, basket)
+		return basket
+	}
+)
+
 export const userSlice = createSlice({
-	name: 'userSlice',
+	name: 'user',
 	initialState,
 	reducers: {
 		

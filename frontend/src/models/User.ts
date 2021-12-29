@@ -1,4 +1,4 @@
-import { BucketNode as BasketNode } from './BucketNode'
+import { BasketNode } from './BasketNode'
 
 export interface User {
 	id?: string
@@ -6,6 +6,6 @@ export interface User {
 	password?: string
 	firstName: string
 	lastName: string
-	accountCratedDate?: string
+	accountCreatedDate?: string
 	basket: BasketNode[]
 }

@@ -4,8 +4,12 @@
 	.userInfo {
 		margin-top: 30px;
 
-		.cardButton {
+		.buttons {
 			margin-top: 25px;
+
+			button {
+				margin: 8px;
+			}
 
 			a {
 				text-decoration: none;

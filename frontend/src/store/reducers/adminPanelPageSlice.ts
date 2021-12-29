@@ -61,6 +61,7 @@ export const createProductThunk = createAsyncThunk<void, void, {state: RootState
 		}
 
 		const product: Product = {
+			id: 0,
 			name,
 			description,
 			category: {id: category, name: ''},

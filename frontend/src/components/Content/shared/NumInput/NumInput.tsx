@@ -3,12 +3,13 @@ import scss from './NumInput.module.scss'
 
 
 type NumInputProps = {
-	caption: string,
-	value: number,
+	caption: string
+	value: number
+	min?: number
 	changeValue: (value: number) => void
 }
 
-const NumInput: React.FC<NumInputProps> = ({ caption, value, changeValue }) => {
+const NumInput: React.FC<NumInputProps> = ({ caption, value, min, changeValue }) => {
 	const ref = createRef<HTMLInputElement>()
 
 	const handlerOnChange = () => {
@@ -24,6 +25,7 @@ const NumInput: React.FC<NumInputProps> = ({ caption, value, changeValue }) => {
 				className='defaultInput'
 				ref={ref}
 				value={value}
+				min={min}
 				onChange={handlerOnChange}
 			/>
 		</div>

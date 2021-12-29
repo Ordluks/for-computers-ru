@@ -9,7 +9,10 @@
 
 		.name {grid-area: n;}
 
-		.image {grid-area: i;}
+		.image {
+			grid-area: i;
+			width: 80%;
+		}
 
 		.description {grid-area: d;}
 	}
